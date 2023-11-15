@@ -1,28 +1,42 @@
 const express = require('express')
+const session = require('express-session')
 const path = require('path')
 const app = express()
 const port = 3000
 
-let views = 0;
+app.use(session({
+    secret:'un secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie:{maxAge:5000}
+}))
+
 app.use('/static',express.static('public'))
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-const logrequest = (req,res,next)=>{
-    console.log(req.originalUrl)
-    next()
-}
+// const logrequest = (req,res,next)=>{
+//     console.log(req.originalUrl)
+//     next()
+// }
 
 // app.use(logrequest)
 
-app.get('/',logrequest,(req,res)=>{
-    res.send('Bienvenu à la page accueil')
+app.get('/',(req,res)=>{
+    console.log("session: ",req.session)
+    
+    if( !req.session.views){
+        req.session.views = 0
+    }
+    req.session.views++
+    let duree = req.session.cookie.maxAge
+    res.send(`Hello vous avez visité la page ${req.session.views} fois, expire le : ${duree}`)
 });
 
-app.get('/hello',(req,res)=>{
-    views++
-    res.send(`Hello vous avez visité la page ${views} fois`)
-})
+// app.get('/hello',logrequest,(req,res)=>{
+//     
+//     res.send(`Hello vous avez visité la page ${views} fois`)
+// })
 
 //chargement d'une page html
 app.get('/html',(req,res)=>{
