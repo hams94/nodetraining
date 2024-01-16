@@ -1,0 +1,11 @@
+<%- include('../templates/header'); -%>
+<h1>Liste des Etudiants</h1>
+<ul>
+    <% students.forEach((student)=>{ %>
+        <li><%= student.nom %> 
+            -
+            <%= student.age >30 ? "adulte":"Jeune" %>
+        </li>
+    <% }) %>
+</ul>
+<%- include('../templates/footer'); -%>
