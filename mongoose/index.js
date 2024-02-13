@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const etudiantRoutes = require('./router/etudiant.router')
@@ -14,6 +15,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/testjs')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}))
 
+var corsOptions = {
+  origin: "*"
+};
+
+app.use(cors(corsOptions));
 
 
 app.use('/etudiants',etudiantRoutes)
