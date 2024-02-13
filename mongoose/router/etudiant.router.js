@@ -8,5 +8,3 @@ router.post('/',etudiantController.create)
 router.get('/:id',etudiantController.findById)
 
 module.exports = router
-
-

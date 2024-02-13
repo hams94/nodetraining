@@ -11,8 +11,7 @@ const create = async (req, res) => {
 }
 
 const getAll = async (req, res) => {
-    const etudiants = await Etudiant.find();
-    console.log(etudiants);
+    const etudiants = await Etudiant.find().populate('departement');
     res.send(etudiants);
 }
 

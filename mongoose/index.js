@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const etudiantRoutes = require('./router/etudiant.router')
+const departementRoutes = require('./router/departement.router')
 const port = 3000
 
 
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 
 
 app.use('/etudiants',etudiantRoutes)
+app.use('/departement',departementRoutes)
 
 
 app.use((req,res)=>{
